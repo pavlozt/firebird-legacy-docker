@@ -74,7 +74,7 @@ fi
 
 if [ ! -f "${VOLUME}/system/security2.fdb" ]; then
     cp ${PREFIX}/skel/security2.fdb ${VOLUME}/system/security2.fdb
-    chown firebird.firebird ${VOLUME}/system/security2.fdb
+    chown firebird:firebird ${VOLUME}/system/security2.fdb
 
     file_env 'ISC_PASSWORD'
     if [ -z ${ISC_PASSWORD} ]; then
