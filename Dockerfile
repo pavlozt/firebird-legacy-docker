@@ -1,9 +1,9 @@
-FROM debian:bullseye-slim
-LABEL maintainer="jacob.alberty@foundigital.com"
+FROM debian:bookworm-slim
+LABEL maintainer="pwlonw@gmail.com"
 
 ENV PREFIX=/usr/local/firebird
 ENV VOLUME=/firebird
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 ENV FBURL=https://github.com/FirebirdSQL/firebird/releases/download/R2_5_9/Firebird-2.5.9.27139-0.tar.bz2
 ENV DBPATH=/firebird/data
 ENV ICU_URL=https://github.com/unicode-org/icu/releases/download/release-52-2/icu4c-52_2-src.tgz
@@ -71,7 +71,7 @@ RUN chmod +x ${PREFIX}/docker-entrypoint.sh
 COPY docker-healthcheck.sh ${PREFIX}/docker-healthcheck.sh
 RUN chmod +x ${PREFIX}/docker-healthcheck.sh \
     && apt-get update \
-    && apt-get -qy install netcat \
+    && apt-get -qy install netcat-traditional \
     && rm -rf /var/lib/apt/lists/*
 HEALTHCHECK CMD ${PREFIX}/docker-healthcheck.sh || exit 1
 
