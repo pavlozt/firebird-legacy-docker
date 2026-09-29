@@ -7,6 +7,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV FBURL=https://github.com/FirebirdSQL/firebird/releases/download/R2_5_9/Firebird-2.5.9.27139-0.tar.bz2
 ENV DBPATH=/firebird/data
 ENV ICU_URL=https://github.com/unicode-org/icu/releases/download/release-52-2/icu4c-52_2-src.tgz
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
+
 
 RUN apt-get update && \
     apt-get install -qy --no-install-recommends \
@@ -18,7 +22,11 @@ RUN apt-get update && \
         libncurses5-dev \
         make \
         netbase \
-        procps && \
+        procps \
+        locales && \
+        echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
+        locale-gen en_US.UTF-8 && \
+        update-locale LANG=en_US.UTF-8 && \
         mkdir -p /home/icu && \
         cd /home/icu && \
         curl -L -o icu4c.tar.gz -L "${ICU_URL}" && \
